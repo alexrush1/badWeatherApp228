@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">bad weather app</string>
+    <string name="city_edit_text_hint">Enter city name</string>
+    <string name="find_button_text">find</string>
+    <string name="weather_picture">weather picture</string>
+    <string name="temp_main_format">%1$s °C</string>
+    <string name="temp_format">Temperature: %1$s °C</string>
+    <string name="country_format">Country: %1$s</string>
+    <string name="cond_format">Condition: %1$s</string>
+    <string name="feels_like_format">Feels like: %1$s °C</string>
+    <string name="humid_format">Humidity: %1$s%%</string>
+    <string name="min_max_temp_format">%1$s … %2$s °C</string>
+    <string name="back_button_text">back</string>
+    <string name="forecast_text">Forecast</string>
+    <string name="favorites_text">Favorites</string>
+    <string name="bad_weather_app">bad weather app</string>
+    <string name="big_brother_is_watching_you">big brother is watching you</string>
+    <string name="timofeev_ivan_18204">Timofeev Ivan 18204</string>
+</resources>
