@@ -9,8 +9,6 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleTagStrategy::class)
 interface DetailsView: MvpView {
 
-    fun setIsCurrentLoading(isLoading: Boolean)
-    fun setIsForecastLoading(isLoading: Boolean)
     fun setIsInFavorites(isFavorite: Boolean)
     fun bindCity(cityCurrentWeather: CityCurrentWeather)
     fun bindForecastList(forecastList: List<Forecast>)

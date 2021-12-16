@@ -2,7 +2,6 @@
     <string name="app_name">bad weather app</string>
     <string name="city_edit_text_hint">Enter city name</string>
     <string name="find_button_text">find</string>
-    <string name="weather_picture">weather picture</string>
     <string name="temp_main_format">%1$s °C</string>
     <string name="temp_format">Temperature: %1$s °C</string>
     <string name="country_format">Country: %1$s</string>

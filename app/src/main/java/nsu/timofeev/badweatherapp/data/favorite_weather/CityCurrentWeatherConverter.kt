@@ -6,6 +6,7 @@ import nsu.timofeev.badweatherapp.weather.current_weather_model.CityCurrentWeath
 import com.google.gson.Gson
 
 class CityCurrentWeatherConverter {
+
     @TypeConverter
     fun stringToOutboxItem(string: String): CityCurrentWeather? {
         if (TextUtils.isEmpty(string))

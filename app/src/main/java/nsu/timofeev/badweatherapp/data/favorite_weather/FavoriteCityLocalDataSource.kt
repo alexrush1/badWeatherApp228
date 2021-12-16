@@ -14,7 +14,6 @@ class FavoriteCityLocalDataSource(private val favoriteCityWeatherDao: FavoriteCi
     override fun updateFavoriteCityWeather(favoriteCityWeather: FavoriteCityWeather): Completable = favoriteCityWeatherDao.update(favoriteCityWeather)
     override fun getFavoriteCityWeather(favoriteCityName: String): Single<FavoriteCityWeather> = favoriteCityWeatherDao.get(favoriteCityName)
 
-
     override fun getAllFavoritesCityForecast(): Single<List<FavoriteCityForecast>> = favoriteCityForecastDao.getAll()
     override fun insertFavoriteCityForecast(favoriteCityForecast: FavoriteCityForecast): Completable = favoriteCityForecastDao.insertCity(favoriteCityForecast)
     override fun deleteFavoriteCityForecast(favoriteCityName: String): Completable = favoriteCityForecastDao.deleteCity(favoriteCityName)
