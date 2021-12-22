@@ -3,6 +3,7 @@ package nsu.timofeev.badweatherapp.presentation.weather.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import nsu.timofeev.badweatherapp.R
 import nsu.timofeev.badweatherapp.databinding.ActivityWeatherDetailsBinding
@@ -94,4 +95,15 @@ class WeatherDetailsActivity : MvpAppCompatActivity(), DetailsView {
     override fun goBack() {
         finish()
     }
+
+    override fun setIsCurrentLoading(isLoading: Boolean) {
+        activityWeatherDetailsBinding.detailsProgressBar.isVisible = isLoading
+        activityWeatherDetailsBinding.detailsLayout.isVisible = !isLoading
+    }
+
+    override fun setIsForecastLoading(isLoading: Boolean) {
+        activityWeatherDetailsBinding.forecastProgressBar.isVisible = isLoading
+        activityWeatherDetailsBinding.forecastList.isVisible = !isLoading
+    }
+
 }

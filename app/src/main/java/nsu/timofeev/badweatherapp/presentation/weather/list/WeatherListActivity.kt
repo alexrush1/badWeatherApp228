@@ -2,6 +2,7 @@ package nsu.timofeev.badweatherapp.presentation.weather.list
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import nsu.timofeev.badweatherapp.databinding.ActivityWeatherListBinding
 import nsu.timofeev.badweatherapp.weather.current_weather_model.CityCurrentWeather
@@ -68,5 +69,10 @@ class WeatherListActivity : MvpAppCompatActivity(), ListView {
 
     override fun showError(message: String) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setIsLoading(isLoading: Boolean) {
+        activityWeatherListBinding.mainProgressBar.isVisible = isLoading
+        activityWeatherListBinding.citiesList.isVisible = !isLoading
     }
 }

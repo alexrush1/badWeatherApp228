@@ -31,10 +31,10 @@ class ForecastAdapter: RecyclerView.Adapter<ForecastAdapter.ForecastHolder>() {
     class ForecastHolder(private val itemForecastBinding: ItemForecastBinding) :
         RecyclerView.ViewHolder(itemForecastBinding.root) {
         val absoluteNull = 273
+        val pattern = "dd/MM/yyyy HH:mm"
+        val simpleDateFormat = SimpleDateFormat(pattern, Locale("en"))
         fun bind(forecast: Forecast) {
 
-            val pattern = "dd/MM/yyyy HH:mm"
-            val simpleDateFormat = SimpleDateFormat(pattern, Locale("en"))
             val date = simpleDateFormat.format(Date(forecast.dt * 1000))
             itemForecastBinding.dateText.text = date.toString()
 

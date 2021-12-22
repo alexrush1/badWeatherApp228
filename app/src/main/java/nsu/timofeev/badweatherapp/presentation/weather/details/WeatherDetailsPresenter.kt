@@ -28,9 +28,13 @@ class WeatherDetailsPresenter @Inject constructor(
     }
 
     fun loadCity(cityName: String) {
+        viewState.setIsCurrentLoading(true)
         weatherRepository.getCurrentWeather(cityName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doAfterTerminate{
+                viewState.setIsCurrentLoading(false)
+            }
             .subscribe({
                 favoriteCityRepository.updateFavoriteCityWeather(FavoriteCityWeather(name = cityName, weather = it))
                 viewState.bindCity(it)
@@ -97,9 +101,13 @@ class WeatherDetailsPresenter @Inject constructor(
     }
 
     fun loadForecast(cityName: String) {
+        viewState.setIsForecastLoading(true)
         weatherRepository.getWeatherForecast(cityName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doAfterTerminate {
+                viewState.setIsForecastLoading(false)
+            }
             .subscribe({
                 favoriteCityRepository.updateFavoriteCityForecast(FavoriteCityForecast(name = cityName, forecast = it))
                 viewState.bindForecastList(it.list)

@@ -13,4 +13,5 @@ interface ListView: MvpView {
     fun cleanCitiesList()
     fun bindOneCity(city: CityCurrentWeather)
     fun showError(message: String)
+    fun setIsLoading(isLoading: Boolean)
 }

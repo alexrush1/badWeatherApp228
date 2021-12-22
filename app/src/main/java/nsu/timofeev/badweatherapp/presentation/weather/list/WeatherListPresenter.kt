@@ -51,10 +51,14 @@ class WeatherListPresenter @Inject constructor(
     }
 
     fun onFavoritesList() {
+        viewState.setIsLoading(true)
         viewState.cleanCitiesList()
         favoriteCityRepository.getAllFavoritesCityWeather()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doAfterTerminate {
+                viewState.setIsLoading(false)
+            }
             .subscribe({
                 convertFavoriteCitiesList(it)
             }, {

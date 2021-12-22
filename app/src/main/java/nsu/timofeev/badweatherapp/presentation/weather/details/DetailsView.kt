@@ -13,4 +13,6 @@ interface DetailsView: MvpView {
     fun bindCity(cityCurrentWeather: CityCurrentWeather)
     fun bindForecastList(forecastList: List<Forecast>)
     fun goBack()
+    fun setIsCurrentLoading(isLoading: Boolean)
+    fun setIsForecastLoading(isLoading: Boolean)
 }
