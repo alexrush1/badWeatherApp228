@@ -11,5 +11,6 @@ import nsu.timofeev.badweatherapp.weather.FavoriteCityWeather
 abstract class FavoriteCityDatabase : RoomDatabase(){
 
     abstract fun getFavoriteCityWeatherDao(): FavoriteCityWeatherDao
+
     abstract fun getFavoriteCityForecastDao(): FavoriteCityForecastDao
 }

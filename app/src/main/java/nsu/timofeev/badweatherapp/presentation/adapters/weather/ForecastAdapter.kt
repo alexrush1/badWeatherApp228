@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ForecastAdapter: RecyclerView.Adapter<ForecastAdapter.ForecastHolder>() {
-
     var cityForecast: List<Forecast> = emptyList()
         set(value) {
             field = value
@@ -31,6 +30,7 @@ class ForecastAdapter: RecyclerView.Adapter<ForecastAdapter.ForecastHolder>() {
 
     class ForecastHolder(private val itemForecastBinding: ItemForecastBinding) :
         RecyclerView.ViewHolder(itemForecastBinding.root) {
+        val absoluteNull = 273
         fun bind(forecast: Forecast) {
 
             val pattern = "dd/MM/yyyy HH:mm"
@@ -41,13 +41,13 @@ class ForecastAdapter: RecyclerView.Adapter<ForecastAdapter.ForecastHolder>() {
             if (forecast.main.temp_max.toInt() == forecast.main.temp_min.toInt()){
                 itemForecastBinding.minMaxTempText.text = itemView.context.getString(
                     R.string.temp_main_format,
-                    (forecast.main.temp_max - 273).toInt().toString()
+                    (forecast.main.temp_max - absoluteNull).toInt().toString()
                 )
             } else {
                 itemForecastBinding.minMaxTempText.text = itemView.context.getString(
                     R.string.min_max_temp_format,
-                    (forecast.main.temp_min - 273).toInt().toString(),
-                    (forecast.main.temp_max - 273).toInt().toString()
+                    (forecast.main.temp_min - absoluteNull).toInt().toString(),
+                    (forecast.main.temp_max - absoluteNull).toInt().toString()
                 )
             }
         }

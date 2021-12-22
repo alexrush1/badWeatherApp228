@@ -27,28 +27,33 @@ class Container {
 
     @Singleton
     @Provides
-    fun providesCityRemoteDataSource(weatherApi: WeatherApi): WeatherDataSource =
-            WeatherRemoteDataSourceImpl(weatherApi)
+    fun providesCityRemoteDataSource(weatherApi: WeatherApi): WeatherDataSource {
+        return WeatherRemoteDataSourceImpl(weatherApi)
+    }
 
     @Singleton
     @Provides
-    fun providesCityRepository(weatherDataSource: WeatherDataSource): WeatherRepository =
-            WeatherRepositoryImpl(weatherDataSource)
+    fun providesCityRepository(weatherDataSource: WeatherDataSource): WeatherRepository {
+        return WeatherRepositoryImpl(weatherDataSource)
+    }
 
     @Singleton
     @Provides
-    fun providesFavoriteCityLocalDataSource(favoriteCityWeatherDao: FavoriteCityWeatherDao, favoriteCityForecastDao: FavoriteCityForecastDao): FavoriteCityDataSource =
-        FavoriteCityLocalDataSource(favoriteCityWeatherDao, favoriteCityForecastDao)
+    fun providesFavoriteCityLocalDataSource(favoriteCityWeatherDao: FavoriteCityWeatherDao, favoriteCityForecastDao: FavoriteCityForecastDao): FavoriteCityDataSource {
+       return FavoriteCityLocalDataSource(favoriteCityWeatherDao, favoriteCityForecastDao)
+    }
+
 
     @Singleton
     @Provides
-    fun providesFavoriteCityRepository(favoriteCityDataSource: FavoriteCityDataSource):
-            FavoriteCityRepository = FavoriteCityRepositoryImpl(favoriteCityDataSource)
+    fun providesFavoriteCityRepository(favoriteCityDataSource: FavoriteCityDataSource): FavoriteCityRepository {
+        return FavoriteCityRepositoryImpl(favoriteCityDataSource)
+    }
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit =
-        Retrofit.Builder()
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
             .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().also {
                 it.level = HttpLoggingInterceptor.Level.BODY
             }).build())
@@ -56,27 +61,34 @@ class Container {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("http://api.openweathermap.org/data/2.5/")
             .build()
+    }
 
     @Singleton
     @Provides
-    fun providesWeatherApi(retrofit: Retrofit): WeatherApi =
-        retrofit.create(WeatherApi::class.java)
+    fun providesWeatherApi(retrofit: Retrofit): WeatherApi {
+        return retrofit.create(WeatherApi::class.java)
+    }
 
     @Singleton
     @Provides
-    fun providesDatabase(@ApplicationContext applicationContext: Context) =
-        Room.databaseBuilder(
+    fun providesDatabase(@ApplicationContext applicationContext: Context): FavoriteCityDatabase {
+        return Room.databaseBuilder(
             applicationContext,
             FavoriteCityDatabase::class.java, "favorite_city_database"
         )
             .fallbackToDestructiveMigration()
             .build()
+    }
 
     @Singleton
     @Provides
-    fun providesFavoriteCityWeatherDao(database: FavoriteCityDatabase) = database.getFavoriteCityWeatherDao()
+    fun providesFavoriteCityWeatherDao(database: FavoriteCityDatabase): FavoriteCityWeatherDao {
+        return database.getFavoriteCityWeatherDao()
+    }
 
     @Singleton
     @Provides
-    fun providesFavoriteCityForecastDao(database: FavoriteCityDatabase) = database.getFavoriteCityForecastDao()
+    fun providesFavoriteCityForecastDao(database: FavoriteCityDatabase): FavoriteCityForecastDao {
+        return database.getFavoriteCityForecastDao()
+    }
 }

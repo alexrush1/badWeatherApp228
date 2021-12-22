@@ -14,10 +14,12 @@ data class Main(
         val humidity: Int,
         val temp: Double
 )
+
 data class Sys(
 
         val country: String
 )
+
 data class Weather(
 
         val description: String,

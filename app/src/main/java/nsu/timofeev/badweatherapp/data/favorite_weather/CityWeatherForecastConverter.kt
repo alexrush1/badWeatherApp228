@@ -1,21 +1,22 @@
 package nsu.timofeev.badweatherapp.data.favorite_weather
 
-import android.text.TextUtils
 import androidx.room.TypeConverter
 import nsu.timofeev.badweatherapp.weather.weather_forecast_model.CityWeatherForecast
 import com.google.gson.Gson
 
 class CityWeatherForecastConverter {
 
+    var gsonInstance = Gson()
+
     @TypeConverter
     fun stringToOutboxItem(string: String): CityWeatherForecast? {
-        if (TextUtils.isEmpty(string))
+        if (string.isEmpty())
             return null
-        return Gson().fromJson(string, CityWeatherForecast::class.java)
+        return gsonInstance.fromJson(string, CityWeatherForecast::class.java)
     }
 
     @TypeConverter
     fun outboxItemToString(outboxItem: CityWeatherForecast): String {
-        return Gson().toJson(outboxItem)
+        return gsonInstance.toJson(outboxItem)
     }
 }

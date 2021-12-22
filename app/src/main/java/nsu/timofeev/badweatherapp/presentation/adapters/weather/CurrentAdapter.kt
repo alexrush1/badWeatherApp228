@@ -30,10 +30,10 @@ class CurrentAdapter(private val onItemClick: (CityCurrentWeather) -> Unit) : Re
 
     class CurrentHolder(private val itemCityBinding: ItemCurrentBinding,
                         private val onItemClick: (CityCurrentWeather) -> Unit) : RecyclerView.ViewHolder(itemCityBinding.root) {
-
+        val absoluteNull = 273
         fun bind(cityCurrent: CityCurrentWeather) {
             itemCityBinding.cityNameText.text = cityCurrent.name
-            val tempFar = (cityCurrent.main.temp - 273).toInt()
+            val tempFar = (cityCurrent.main.temp - absoluteNull).toInt()
             itemCityBinding.tempText.text = itemView.context.getString(R.string.temp_main_format, tempFar.toString())
             itemView.setOnClickListener { onItemClick(cityCurrent) }
         }

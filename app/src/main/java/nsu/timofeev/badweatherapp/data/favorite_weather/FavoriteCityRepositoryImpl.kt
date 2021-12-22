@@ -9,15 +9,42 @@ import io.reactivex.Single
 class FavoriteCityRepositoryImpl(private val favoriteCityDataSource: FavoriteCityDataSource):
     FavoriteCityRepository {
 
-    override fun getAllFavoritesCityWeather(): Single<List<FavoriteCityWeather>> = favoriteCityDataSource.getAllFavoritesCityWeather()
-    override fun insertFavoriteCityWeather(favoriteCityWeather: FavoriteCityWeather): Completable = favoriteCityDataSource.insertFavoriteCityWeather(favoriteCityWeather)
-    override fun deleteFavoriteCityWeather(favoriteCityName: String): Completable = favoriteCityDataSource.deleteFavoriteCityWeather(favoriteCityName)
-    override fun updateFavoriteCityWeather(favoriteCityWeather: FavoriteCityWeather): Completable = favoriteCityDataSource.updateFavoriteCityWeather(favoriteCityWeather)
-    override fun getFavoriteCityWeather(favoriteCityName: String): Single<FavoriteCityWeather> = favoriteCityDataSource.getFavoriteCityWeather(favoriteCityName)
+    override fun getAllFavoritesCityWeather(): Single<List<FavoriteCityWeather>> {
+        return favoriteCityDataSource.getAllFavoritesCityWeather()
+    }
 
-    override fun getAllFavoritesCityForecast(): Single<List<FavoriteCityForecast>> = favoriteCityDataSource.getAllFavoritesCityForecast()
-    override fun insertFavoriteCityForecast(favoriteCityForecast: FavoriteCityForecast): Completable = favoriteCityDataSource.insertFavoriteCityForecast(favoriteCityForecast)
-    override fun deleteFavoriteCityForecast(favoriteCityName: String): Completable = favoriteCityDataSource.deleteFavoriteCityForecast(favoriteCityName)
-    override fun updateFavoriteCityForecast(favoriteCityForecast: FavoriteCityForecast): Completable = favoriteCityDataSource.updateFavoriteCityForecast(favoriteCityForecast)
-    override fun getFavoriteCityForecast(favoriteCityName: String): Single<FavoriteCityForecast> = favoriteCityDataSource.getFavoriteCityForecast(favoriteCityName)
+    override fun insertFavoriteCityWeather(favoriteCityWeather: FavoriteCityWeather): Completable {
+        return favoriteCityDataSource.insertFavoriteCityWeather(favoriteCityWeather)
+    }
+    override fun deleteFavoriteCityWeather(favoriteCityName: String): Completable {
+        return favoriteCityDataSource.deleteFavoriteCityWeather(favoriteCityName)
+    }
+
+    override fun updateFavoriteCityWeather(favoriteCityWeather: FavoriteCityWeather): Completable {
+        return favoriteCityDataSource.updateFavoriteCityWeather(favoriteCityWeather)
+    }
+
+    override fun getFavoriteCityWeather(favoriteCityName: String): Single<FavoriteCityWeather> {
+        return favoriteCityDataSource.getFavoriteCityWeather(favoriteCityName)
+    }
+
+    override fun getAllFavoritesCityForecast(): Single<List<FavoriteCityForecast>> {
+        return favoriteCityDataSource.getAllFavoritesCityForecast()
+    }
+
+    override fun insertFavoriteCityForecast(favoriteCityForecast: FavoriteCityForecast): Completable {
+        return favoriteCityDataSource.insertFavoriteCityForecast(favoriteCityForecast)
+    }
+
+    override fun deleteFavoriteCityForecast(favoriteCityName: String): Completable {
+        return favoriteCityDataSource.deleteFavoriteCityForecast(favoriteCityName)
+    }
+
+    override fun updateFavoriteCityForecast(favoriteCityForecast: FavoriteCityForecast): Completable {
+        return favoriteCityDataSource.updateFavoriteCityForecast(favoriteCityForecast)
+    }
+
+    override fun getFavoriteCityForecast(favoriteCityName: String): Single<FavoriteCityForecast> {
+        return favoriteCityDataSource.getFavoriteCityForecast(favoriteCityName)
+    }
 }

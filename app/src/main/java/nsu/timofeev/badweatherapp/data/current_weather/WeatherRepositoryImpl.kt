@@ -7,6 +7,11 @@ import io.reactivex.Single
 
 class WeatherRepositoryImpl(private val weatherDataSource: WeatherDataSource): WeatherRepository {
 
-    override fun getCurrentWeather(cityName: String): Single<CityCurrentWeather> = weatherDataSource.getCurrentWeather(cityName)
-    override fun getWeatherForecast(cityName: String): Single<CityWeatherForecast> = weatherDataSource.getWeatherForecast(cityName)
+    override fun getCurrentWeather(cityName: String): Single<CityCurrentWeather> {
+        return weatherDataSource.getCurrentWeather(cityName)
+    }
+
+    override fun getWeatherForecast(cityName: String): Single<CityWeatherForecast> {
+        return weatherDataSource.getWeatherForecast(cityName)
+    }
 }

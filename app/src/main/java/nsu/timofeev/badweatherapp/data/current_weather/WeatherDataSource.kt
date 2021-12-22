@@ -7,5 +7,6 @@ import io.reactivex.Single
 interface WeatherDataSource {
 
     fun getCurrentWeather(cityName: String): Single<CityCurrentWeather>
+
     fun getWeatherForecast(cityName: String): Single<CityWeatherForecast>
 }
