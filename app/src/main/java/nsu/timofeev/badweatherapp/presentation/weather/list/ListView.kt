@@ -14,4 +14,5 @@ interface ListView: MvpView {
     fun bindOneCity(city: CityCurrentWeather)
     fun showError(message: String)
     fun setIsLoading(isLoading: Boolean)
+    fun disableFindButton(isDisable: Boolean)
 }

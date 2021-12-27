@@ -10,7 +10,7 @@ interface FavoriteCityWeatherDao {
     @Query("SELECT * FROM FavoriteCityWeather")
     fun getAll(): Single<List<FavoriteCityWeather>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCity(favoriteCityWeather: FavoriteCityWeather): Completable
 
     @Query("DELETE FROM FavoriteCityWeather WHERE name=:favoriteCityName")

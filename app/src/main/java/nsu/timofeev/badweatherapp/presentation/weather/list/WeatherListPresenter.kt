@@ -1,5 +1,6 @@
 package nsu.timofeev.badweatherapp.presentation.weather.list
 
+import android.content.Context
 import nsu.timofeev.badweatherapp.weather.FavoriteCityWeather
 import nsu.timofeev.badweatherapp.weather.FavoriteCityRepository
 import nsu.timofeev.badweatherapp.weather.WeatherRepository
@@ -11,6 +12,14 @@ import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
+import android.net.NetworkInfo
+
+import androidx.core.content.ContextCompat.getSystemService
+
+import android.net.ConnectivityManager
+import androidx.core.content.ContextCompat
+import java.lang.Exception
+
 
 @InjectViewState
 class WeatherListPresenter @Inject constructor(
@@ -70,5 +79,13 @@ class WeatherListPresenter @Inject constructor(
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.clear()
+    }
+
+    fun isOnline(context: Context) {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        if (netInfo != null && netInfo.isConnectedOrConnecting) {
+            viewState.disableFindButton(false)
+        } else viewState.disableFindButton(true)
     }
 }

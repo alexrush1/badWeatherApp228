@@ -10,6 +10,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import nsu.timofeev.badweatherapp.weather.current_weather_model.CityCurrentWeather
+import nsu.timofeev.badweatherapp.weather.weather_forecast_model.CityWeatherForecast
 import javax.inject.Inject
 
 @InjectViewState
@@ -32,24 +34,30 @@ class WeatherDetailsPresenter @Inject constructor(
         weatherRepository.getCurrentWeather(cityName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doAfterTerminate{
+            .doAfterTerminate {
                 viewState.setIsCurrentLoading(false)
             }
-            .subscribe({
-                favoriteCityRepository.updateFavoriteCityWeather(FavoriteCityWeather(name = cityName, weather = it))
-                viewState.bindCity(it)
-            }, {
+            .doOnError {
                 favoriteCityRepository.getFavoriteCityWeather(cityName)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        viewState.bindCity(it.weather)
-                    }, {
-                        it.printStackTrace()
-                        viewState.goBack()
-                    })
-                    .untilDestroy()
-            }).untilDestroy()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    viewState.bindCity(it.weather)
+                }, {
+                    viewState.goBack()
+                })
+                .untilDestroy()
+            }
+            .subscribe ({
+                favoriteCityRepository.updateFavoriteCityWeather(
+                    FavoriteCityWeather(
+                        name = cityName,
+                        weather = it
+                    )
+                )
+                viewState.bindCity(it)
+            }, {})
+            .untilDestroy()
     }
 
     fun onAddToFavoriteButtonClicked(cityName: String, isChecked: Boolean) {
@@ -57,24 +65,12 @@ class WeatherDetailsPresenter @Inject constructor(
             weatherRepository.getCurrentWeather(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({favoriteCityRepository.insertFavoriteCityWeather(FavoriteCityWeather(name = cityName, weather = it))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({}, {
-                        it.printStackTrace()
-                    })
-                    .untilDestroy()}, {})
+                .subscribe({ insertFavoriteCityWeather(cityName, it) }, {})
                 .untilDestroy()
             weatherRepository.getWeatherForecast(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({favoriteCityRepository.insertFavoriteCityForecast(FavoriteCityForecast(name = cityName, forecast = it))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({}, {
-                        it.printStackTrace()
-                    })
-                    .untilDestroy()}, {})
+                .subscribe({ insertFavoriteCityForecast(cityName, it) }, {})
         .untilDestroy()
         } else {
             favoriteCityRepository.deleteFavoriteCityWeather(cityName)
@@ -108,16 +104,18 @@ class WeatherDetailsPresenter @Inject constructor(
             .doAfterTerminate {
                 viewState.setIsForecastLoading(false)
             }
-            .subscribe({
-                favoriteCityRepository.updateFavoriteCityForecast(FavoriteCityForecast(name = cityName, forecast = it))
-                viewState.bindForecastList(it.list)
-            }, {
+            .doOnError {
                 favoriteCityRepository.getFavoriteCityForecast(cityName)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({viewState.bindForecastList(it.forecast.list) }, {})
                     .untilDestroy()
-                 }).untilDestroy()
+            }
+            .subscribe({
+                favoriteCityRepository.updateFavoriteCityForecast(FavoriteCityForecast(name = cityName, forecast = it))
+                viewState.bindForecastList(it.list)
+            }, {})
+            .untilDestroy()
     }
 
     fun goBack() {
@@ -127,5 +125,25 @@ class WeatherDetailsPresenter @Inject constructor(
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.clear()
+    }
+
+    private fun insertFavoriteCityWeather(cityName: String, weather: CityCurrentWeather) {
+        favoriteCityRepository.insertFavoriteCityWeather(FavoriteCityWeather(name = cityName, weather = weather))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({}, {
+                it.printStackTrace()
+            })
+            .untilDestroy()
+    }
+
+    private fun insertFavoriteCityForecast(cityName: String, forecast: CityWeatherForecast) {
+        favoriteCityRepository.insertFavoriteCityForecast(FavoriteCityForecast(name = cityName, forecast = forecast))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({}, {
+                it.printStackTrace()
+            })
+            .untilDestroy()
     }
 }

@@ -31,6 +31,7 @@ class WeatherListActivity : MvpAppCompatActivity(), ListView {
         super.onCreate(savedInstanceState)
         initViews()
         setContentView(activityWeatherListBinding.root)
+        weatherListPresenter.isOnline(applicationContext)
     }
 
     private fun initViews() {
@@ -74,5 +75,10 @@ class WeatherListActivity : MvpAppCompatActivity(), ListView {
     override fun setIsLoading(isLoading: Boolean) {
         activityWeatherListBinding.mainProgressBar.isVisible = isLoading
         activityWeatherListBinding.citiesList.isVisible = !isLoading
+    }
+
+    override fun disableFindButton(isDisable: Boolean) {
+        activityWeatherListBinding.findButton.isVisible = !isDisable
+        activityWeatherListBinding.cityEditText.isVisible = !isDisable
     }
 }
