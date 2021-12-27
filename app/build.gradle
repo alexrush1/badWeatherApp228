@@ -5,6 +5,7 @@ plugins {
 
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "kotlinx-serialization"
 
 android {
     compileSdk 30
@@ -83,6 +84,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
